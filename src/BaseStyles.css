@@ -1,0 +1,35 @@
+.base-link {
+    color: white
+}
+
+.active-link{
+    color: tomato
+}
+
+ul {
+    list-style: none;
+}
+li {
+    color: white
+}
+
+a {
+    text-decoration: none;
+}
+
+h2 {
+    padding-left: 40px;
+}
+h3 {
+    padding-left: 40px;
+    color: cyan;
+}
+
+p {
+    padding-left: 40px;
+    color: white;
+}
+
+img {
+    padding-left: 40px;
+}
