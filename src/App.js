@@ -1,13 +1,31 @@
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import HomeViewAuthorsView from './Views/HomeView';
-import AuthorsView from './Views/AuthorsView';
-import BooksView from './Views/BooksView';
+// import HomeView from './Views/HomeView';
+// import AuthorsView from './Views/AuthorsView';
+// import BooksView from './Views/BooksView';
+// import BookDetailView from './Views/BookDetailView';
 import PageNotFound from './Views/PageNotFound';
-import BookDetailView from './Views/BookDetailView';
+
+import AppBar from './Components/AppBar';
+
+import routs from './routs';
 
 import './App.css';
 import './BaseStyles.css';
+
+const HomeView = lazy(() =>
+  import('./Views/HomeView' /* webpackChunkName: "home-page" */),
+);
+const AuthorsView = lazy(() =>
+  import('./Views/AuthorsView' /* webpackChunkName: "authors-page" */),
+);
+const BooksView = lazy(() =>
+  import('./Views/BooksView' /* webpackChunkName: "books-page" */),
+);
+const BookDetailView = lazy(() =>
+  import('./Views/BookDetailView' /* webpackChunkName: "book-details-page" */),
+);
 
 // const styles = {
 //     base: {
@@ -21,47 +39,20 @@ import './BaseStyles.css';
 function App() {
   return (
     <div className="App">
-      <ul>
-        <li>
-          <NavLink
-            exact
-            to="/"
-            className="base-link"
-            activeClassName="active-link"
-          >
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/authors"
-            className="base-link"
-            activeClassName="active-link"
-          >
-            Author
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/books"
-            className="base-link"
-            activeClassName="active-link"
-          >
-            Books
-          </NavLink>
-        </li>
-      </ul>
-      <Switch>
-        <Route exact path="/" component={HomeViewAuthorsView} />
-        <Route path="/authors" component={AuthorsView} />
-        {/* Можно использовать такой вариант ПРОСТО МЕНЯЕМ ПОСЛЕДОВАТЕЛЬНОСТЬ И УБИРАЕМ EXACT У BOOKS 
+      <AppBar />
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <Switch>
+          <Route exact path={routs.home} component={HomeView} />
+          <Route path={routs.authors} component={AuthorsView} />
+          {/* Можно использовать такой вариант ПРОСТО МЕНЯЕМ ПОСЛЕДОВАТЕЛЬНОСТЬ И УБИРАЕМ EXACT У BOOKS 
           <Route path="/books/:bookId" component={BookDetailView} />
           <Route path="/books" component={BooksView} />
         */}
-        <Route exact path="/books" component={BooksView} />
-        <Route path="/books/:bookId" component={BookDetailView} />
-        <Route component={PageNotFound} />
-      </Switch>
+          <Route exact path={routs.books} component={BooksView} />
+          <Route path={routs.bookDetailView} component={BookDetailView} />
+          <Route component={PageNotFound} />
+        </Switch>
+      </Suspense>
     </div>
   );
 }

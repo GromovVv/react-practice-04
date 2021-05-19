@@ -21,7 +21,7 @@
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "api-server": "json-server --delay 200 --port 4040 db.json"
+    "server": "json-server --delay 200 --port 4040 db.json"
   },
   "eslintConfig": {
     "extends": [

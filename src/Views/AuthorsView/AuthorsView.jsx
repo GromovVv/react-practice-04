@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import { NavLink, Route } from 'react-router-dom';
 
-import AuthorBooks from '../../Components/AuthorBoks';
+import BookList from '../../Components/BookList';
 
 class AuthorsView extends Component {
   state = {
@@ -61,13 +61,13 @@ class AuthorsView extends Component {
 
             const author = this.state.authors.find(({id}) => id === bookId);
 
-            if(author){
-              console.log(author.books);
-            }
+            // if(author){
+            //   console.log(author.books);
+            // }
             
             // return <AuthorBooks {...props} authors={this.state.authors}/>
             // return author ? <AuthorBooks {...props} books={author.books}/> : null;
-            return author && <AuthorBooks {...props} books={author.books}/>;
+            return author && <BookList {...props} books={author.books}/>;
 
           }}
         />}
